@@ -1,6 +1,11 @@
 ﻿  Game.cpp
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(3,51): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(3,39): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(6,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(7,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(8,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(9,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(10,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   Main.cpp
-  NPC.cpp
-  Player.cpp
   Generating Code...
-  AI_Lab1-3.vcxproj -> C:\Users\gameuser\Desktop\Labs\AI_Lab1-3\Debug\AI_Lab1-3.exe
+  AI_Lab1-3.vcxproj -> C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\Debug\AI_Lab1-3.exe

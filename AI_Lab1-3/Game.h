@@ -18,8 +18,13 @@ public:
 private:
 
 	void processEvents();
+	void keyEvents(sf::Event event);
 	void update(sf::Time t_tpf);
+	void playerCheck();
+	void npcCheck();
 	void render();
+
+	float screenSize = sf::VideoMode::getDesktopMode().height / 1.5f;
 
 	sf::RenderWindow	m_window;
 	Player				m_player;
@@ -27,8 +32,8 @@ private:
 
 	sf::Vector2f		m_playerVec;
 	sf::Vector2f		m_npcVec;
-	float				m_playerSpeed;
-	float				m_npcSpeed;
+	float				m_playerSpeed{1};
+	float				m_npcSpeed{1};
 
 };
 
