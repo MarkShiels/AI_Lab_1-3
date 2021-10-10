@@ -2,10 +2,9 @@
 
 Player::Player()
 {
-	body.setPosition(200, 200);
-	body.setFillColor(sf::Color::Blue);
-	body.setSize(sf::Vector2f(62, 62));
-	body.setOrigin(31, 31);
+	body.setPosition(50, 50);
+	body.setOrigin(85.5, 145.5);
+	body.setScale(0.25, 0.25);
 }
 
 Player::~Player()
@@ -22,14 +21,29 @@ sf::Vector2f Player::getPosition()
 	return body.getPosition();
 }
 
+sf::Sprite Player::getBody()
+{
+	return body;
+}
+
+void Player::setRotation(float t_angle)
+{
+	body.setRotation(t_angle);
+}
+
 float Player::bodyWidth()
 {
-	return body.getSize().x;
+	return 0.0f;
 }
 
 float Player::bodyHeight()
 {
-	return body.getSize().y;
+	return 0.0f;
+}
+
+void Player::setTetxure(sf::Texture* t_txtr)
+{
+	body.setTexture(*t_txtr);
 }
 
 void Player::render(sf::RenderWindow* t_window)

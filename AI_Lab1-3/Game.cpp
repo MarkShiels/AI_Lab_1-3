@@ -1,7 +1,22 @@
 #include "Game.h"
+#include <iostream>
 
 Game::Game() : m_window(sf::VideoMode(screenSize, screenSize, 32), "AI_Lab_1-3", sf::Style::Close)
 {
+	if (!m_playerTxtr.loadFromFile("Assets/playerShip.png"))
+	{
+		std::cout << "Can't load player ship" << std::endl;
+	}
+	if (!m_alienTxtr.loadFromFile("Assets/alienShip.png"))
+	{
+		std::cout << "Can't load alien ship" << std::endl;
+	}
+
+	m_player.setTetxure(&m_playerTxtr);
+	m_npc.setTetxure(&m_alienTxtr);
+	m_player.setRotation(90);
+	m_pi = 2 * acos(0.0);
+
 	do {
 		srand(time(0));
 		float randX = (rand() % 20) - 10;
@@ -59,11 +74,11 @@ void Game::processEvents()
 
 void Game::keyEvents(sf::Event event)
 {
-	if (event.key.code == sf::Keyboard::Up)
+	if (event.key.code == sf::Keyboard::Up && m_playerSpeed < 5.0f)
 	{
 		m_playerSpeed += 0.5f;
 	}
-	else if (event.key.code == sf::Keyboard::Down)
+	else if (event.key.code == sf::Keyboard::Down && m_playerSpeed > 0.0f )
 	{
 		m_playerSpeed -= 0.5f;
 	}
@@ -80,23 +95,25 @@ void Game::update(sf::Time t_tpf)
 
 void Game::playerCheck()
 {
-	if (m_player.getPosition().x + m_player.bodyWidth() < 0)
+	if (m_player.getPosition().x < 0)
 	{
-		m_player.setPosition(sf::Vector2f(screenSize + m_player.bodyWidth(), m_player.getPosition().y));
+		m_player.setPosition(sf::Vector2f(screenSize, m_player.getPosition().y));
 	}
-	else if (m_player.getPosition().x - m_player.bodyWidth() > screenSize)
+	else if (m_player.getPosition().x > screenSize)
 	{
-		m_player.setPosition(sf::Vector2f(0 - m_player.bodyWidth(), m_player.getPosition().y));
+		m_player.setPosition(sf::Vector2f(0 , m_player.getPosition().y));
 	}
 
-	if (m_player.getPosition().y + m_player.bodyHeight() < 0)
+	if (m_player.getPosition().y < 0)
 	{
-		m_player.setPosition(sf::Vector2f(m_player.getPosition().x, screenSize + m_player.bodyHeight()));
+		m_player.setPosition(sf::Vector2f(m_player.getPosition().x, screenSize ));
 	}
-	else if (m_player.getPosition().y - m_player.bodyHeight() > screenSize)
+	else if (m_player.getPosition().y > screenSize)
 	{
-		m_player.setPosition(sf::Vector2f(m_player.getPosition().x, 0 - m_player.bodyHeight()));
+		m_player.setPosition(sf::Vector2f(m_player.getPosition().x, 0 ));
 	}
+
+	playerFacing();
 }
 
 void Game::npcCheck()
@@ -120,11 +137,27 @@ void Game::npcCheck()
 	}
 }
 
+void Game::playerFacing()
+{
+	float pX = m_player.getPosition().x;
+	float pY = m_player.getPosition().y;
+
+	float mX = m_playerVec.x;
+	float mY = m_playerVec.y;
+
+	float angle = atan2f((mY - pY), (mX - pX));
+	angle = angle * (180 / m_pi);
+	
+	m_player.setRotation(angle);
+}
+
 void Game::render()
 {
 	m_window.clear(sf::Color(255,255,255));
 
 	m_player.render(&m_window);
 	m_npc.render(&m_window);
+
 	m_window.display();
 }
+

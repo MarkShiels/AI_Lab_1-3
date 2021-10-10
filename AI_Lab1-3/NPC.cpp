@@ -3,9 +3,8 @@
 NPC::NPC()
 {
 	body.setPosition(550, 550);
-	body.setFillColor(sf::Color::Red);
-	body.setSize(sf::Vector2f(62, 62));
-	body.setOrigin(31, 31);
+	body.setOrigin(106, 118.5);
+	body.setScale(0.2, 0.2);
 }
 
 NPC::~NPC()
@@ -22,14 +21,24 @@ sf::Vector2f NPC::getPosition()
 	return body.getPosition();
 }
 
+sf::Sprite NPC::getBody()
+{
+	return body;
+}
+
+void NPC::setTetxure(sf::Texture* t_txtr)
+{
+	body.setTexture(*t_txtr);
+}
+
 float NPC::bodyWidth()
 {
-	return body.getSize().x;
+	return 0.0f;
 }
 
 float NPC::bodyHeight()
 {
-	return body.getSize().y;
+	return 0.0f;
 }
 
 void NPC::render(sf::RenderWindow* t_window)
