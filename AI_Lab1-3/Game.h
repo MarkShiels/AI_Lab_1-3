@@ -23,7 +23,7 @@ private:
 	void playerCheck();
 	void npcCheck();
 	void render();
-	void playerFacing();
+	sf::Vector2f normalise(sf::Vector2f t_vec);
 
 	float screenSize = sf::VideoMode::getDesktopMode().height / 1.5f;
 

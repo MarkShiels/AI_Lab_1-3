@@ -41,6 +41,52 @@ float NPC::bodyHeight()
 	return 0.0f;
 }
 
+void NPC::setSpeed(float t_speed)
+{
+	speed = t_speed;
+}
+
+float NPC::getSpeed()
+{
+	return speed;
+}
+
+void NPC::setMoveVec(sf::Vector2f t_moveVec)
+{
+	moveVec = t_moveVec;
+}
+
+sf::Vector2f NPC::getMoveVec()
+{
+	return moveVec;
+}
+
+void NPC::move()
+{
+	body.move(moveVec * speed);
+}
+
+void NPC::facing(float t_pi)
+{
+	float pX = body.getPosition().x;
+	float pY = body.getPosition().y;
+
+	float mX = pX + moveVec.x;
+	float mY = pY + moveVec.y;
+
+	float angle = atan2f((mY - pY), (mX - pX));
+	angle = angle * (180 / t_pi);
+
+	body.setRotation(angle + 90);
+}
+
+void NPC::update(float t_pi)
+{
+	move();
+	facing(t_pi);
+}
+
+
 void NPC::render(sf::RenderWindow* t_window)
 {
 	t_window->draw(body);
