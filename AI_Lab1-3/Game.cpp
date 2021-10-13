@@ -1,7 +1,6 @@
 #include "Game.h"
 #include <iostream>
 
-
 Game::Game() : m_window(sf::VideoMode(screenSize, screenSize, 32), "AI_Lab_1-3", sf::Style::Close)
 {
 	if (!m_playerTxtr.loadFromFile("Assets/playerShip.png"))
@@ -15,8 +14,15 @@ Game::Game() : m_window(sf::VideoMode(screenSize, screenSize, 32), "AI_Lab_1-3",
 
 	m_player.setTetxure(&m_playerTxtr);
 	m_player.setSpeed(m_playerSpeed);
-	m_npc.setTetxure(&m_alienTxtr);
-	m_npc.setSpeed(m_npcSpeed);
+
+	m_npcWdr.setTetxure(&m_alienTxtr);
+	m_npcWdr.setSpeed(m_npcSpeed);
+	m_npcWdr.changeBehaviour(Behaviour::Wander);
+
+	m_npcSk.setTetxure(&m_alienTxtr);
+	m_npcSk.setSpeed(m_npcSpeed);
+	m_npcSk.changeBehaviour(Behaviour::Seek);
+
 	m_pi = 2 * acos(0.0);
 
 	do {
@@ -25,14 +31,19 @@ Game::Game() : m_window(sf::VideoMode(screenSize, screenSize, 32), "AI_Lab_1-3",
 		float randY = (rand() % 20) - 10;
 		float randX2 = (rand() % 20) - 10;
 		float randY2 = (rand() % 20) - 10;
+		float randX3 = (rand() % 20) - 10;
+		float randY3 = (rand() % 20) - 10;
 		m_npcVec = sf::Vector2f(randX2, randY2);
-		normalise(m_npcVec);
+		normaliseVector(m_npcVec);
+		m_npcVec2 = sf::Vector2f(randX3, randY3);
+		normaliseVector(m_npcVec2);
 		m_playerVec = sf::Vector2f(randX, randY);
-		normalise(m_playerVec);
-	} while (m_playerVec == sf::Vector2f(0,0) || m_npcVec == sf::Vector2f(0,0));
+		normaliseVector(m_playerVec);
+	} while (m_playerVec == sf::Vector2f(0,0) || m_npcVec == sf::Vector2f(0,0) || m_npcVec2 == sf::Vector2f(0, 0));
 
 	m_player.setMoveVec(m_playerVec);
-	m_npc.setMoveVec(m_npcVec);
+	m_npcWdr.setMoveVec(m_npcVec);
+	m_npcSk.setMoveVec(m_npcVec2);
 }
 
 Game::~Game()
@@ -116,8 +127,9 @@ void Game::keyEvents(sf::Event event)
 void Game::update(sf::Time t_tpf)
 {
 	m_player.update(m_pi);
-	m_npc.update(m_pi);
-
+	m_npcWdr.update(m_pi, m_player.getPosition());
+	m_npcSk.update(m_pi, m_player.getPosition());
+	
 	playerCheck();
 	npcCheck();
 }
@@ -145,26 +157,11 @@ void Game::playerCheck()
 
 void Game::npcCheck()
 {
-	if (m_npc.getPosition().x + m_npc.bodyWidth() < 0)
-	{
-		m_npc.setPosition(sf::Vector2f(screenSize + m_npc.bodyWidth(), m_npc.getPosition().y));
-	}
-	else if (m_npc.getPosition().x - m_npc.bodyWidth() > screenSize)
-	{
-		m_npc.setPosition(sf::Vector2f(0 - m_npc.bodyWidth(), m_npc.getPosition().y));
-	}
-
-	if (m_npc.getPosition().y + m_npc.bodyHeight() < 0)
-	{
-		m_npc.setPosition(sf::Vector2f(m_npc.getPosition().x, screenSize + m_npc.bodyHeight()));
-	}
-	else if (m_npc.getPosition().y - m_npc.bodyHeight() > screenSize)
-	{
-		m_npc.setPosition(sf::Vector2f(m_npc.getPosition().x, 0 - m_npc.bodyHeight()));
-	}
+	m_npcWdr.boundaryCheck(screenSize);
+	m_npcSk.boundaryCheck(screenSize);
 }
 
-sf::Vector2f Game::normalise(sf::Vector2f t_vec)
+sf::Vector2f Game::normaliseVector(sf::Vector2f t_vec)
 {
 	float vecMag = sqrt((t_vec.x * t_vec.x) + (t_vec.y * t_vec.y));
 
@@ -172,12 +169,14 @@ sf::Vector2f Game::normalise(sf::Vector2f t_vec)
 
 	return returnVec;
 }
+
 void Game::render()
 {
 	m_window.clear(sf::Color(255,255,255));
 
 	m_player.render(&m_window);
-	m_npc.render(&m_window);
+	m_npcWdr.render(&m_window);
+	m_npcSk.render(&m_window);
 
 	m_window.display();
 }

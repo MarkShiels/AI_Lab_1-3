@@ -1,10 +1,14 @@
 ﻿  Game.cpp
-C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(5,51): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(5,39): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(20,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(23,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(24,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(25,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(26,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(27,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(4,51): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(4,39): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(26,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(29,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(30,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(31,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(32,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(33,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(34,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\Game.cpp(35,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  Main.cpp
+  Generating Code...
   AI_Lab1-3.vcxproj -> C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\Debug\AI_Lab1-3.exe

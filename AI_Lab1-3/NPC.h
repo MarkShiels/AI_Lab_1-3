@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Behaviour.h"
 
 class NPC
 {
@@ -13,20 +14,25 @@ public:
 	sf::Vector2f	getPosition();
 	sf::Sprite		getBody();
 	void			setTetxure(sf::Texture* t_txtr);
-	float			bodyWidth();
-	float			bodyHeight();
 	void			setSpeed(float t_speed);
 	float			getSpeed();
 	void			setMoveVec(sf::Vector2f t_moveVec);
 	sf::Vector2f	getMoveVec();
-	void			move();
-	void			facing(float t_pi);
-	void			update(float t_pi);
+	void			update(float t_pi, sf::Vector2f t_target);
+	void			changeBehaviour(Behaviour t_b);
+	void			boundaryCheck(float t_screenSize);
+
+	sf::Vector2f	normaliseVector(sf::Vector2f t_vec);
 
 private:
 
+	Behaviour		behaviour;
 	sf::Sprite		body;
 	sf::Texture		bodyTxtr;
 	sf::Vector2f	moveVec;
 	float			speed;
+	void			facing(float t_pi);
+	void			knmtcWander(float t_pi);
+	void			seek(sf::Vector2f t_target);
+	void			move();
 };

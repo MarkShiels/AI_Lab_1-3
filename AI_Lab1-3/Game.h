@@ -23,19 +23,21 @@ private:
 	void playerCheck();
 	void npcCheck();
 	void render();
-	sf::Vector2f normalise(sf::Vector2f t_vec);
+	sf::Vector2f normaliseVector(sf::Vector2f t_vec);
 
 	float screenSize = sf::VideoMode::getDesktopMode().height / 1.5f;
 
 	sf::RenderWindow	m_window;
 	Player				m_player;
-	NPC					m_npc;
+	NPC					m_npcWdr;
+	NPC					m_npcSk;
 	sf::Texture			m_playerTxtr;
 	sf::Texture			m_alienTxtr;
 	sf::Vector2f		m_playerVec;
 	sf::Vector2f		m_npcVec;
+	sf::Vector2f		m_npcVec2;
 	float				m_playerSpeed{1};
-	float				m_npcSpeed{1};
+	float				m_npcSpeed{4};
 	float				m_pi;
 
 };
