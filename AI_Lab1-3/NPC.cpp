@@ -72,14 +72,27 @@ void NPC::facing(float t_pi)
 
 void NPC::update(float t_pi, sf::Vector2f t_target)
 {
-	if (behaviour == Behaviour::Wander)
+
+	switch (behaviour)
 	{
+	case Behaviour::Wander:
 		knmtcWander(t_pi);
-	}
-	else if (behaviour == Behaviour::Seek)
-	{
+		break;
+
+	case Behaviour::Seek :
 		seek(t_target);
+		break;
+
+	case Behaviour::Arrive :
+		arrive(t_target);
+		break;
+	case Behaviour::Flee :
+		flee(t_target);
+
+	default :
+		break;
 	}
+
 	move();
 	facing(t_pi);
 }
@@ -108,16 +121,6 @@ void NPC::boundaryCheck(float t_screenSize)
 	{
 		body.setPosition(sf::Vector2f(body.getPosition().x, 0));
 	}
-}
-
-sf::Vector2f NPC::normaliseVector(sf::Vector2f t_vec)
-{
-	float vecMag = sqrt((t_vec.x * t_vec.x) + (t_vec.y * t_vec.y));
-
-	sf::Vector2f returnVec = sf::Vector2f(t_vec.x / vecMag, t_vec.y / vecMag);
-
-	return returnVec;
-	
 }
 
 void NPC::knmtcWander(float t_pi)
@@ -159,7 +162,45 @@ void NPC::seek(sf::Vector2f t_target)
 
 }
 
+void NPC::arrive(sf::Vector2f t_target)
+{
+	moveVec = t_target - body.getPosition();
+	
+	if (vectorMagnitude(moveVec) < 1)
+	{
+		speed = 0;
+	}
+	else
+	{
+		speed = 4;
+	}
+	
+	moveVec = normaliseVector(moveVec);
+}
+
+void NPC::flee(sf::Vector2f t_target)
+{
+	moveVec = body.getPosition() - t_target;
+	moveVec = normaliseVector(moveVec);
+}
+
 void NPC::render(sf::RenderWindow* t_window)
 {
 	t_window->draw(body);
+}
+
+float NPC::vectorMagnitude(sf::Vector2f t_vec)
+{
+	float vecMag = sqrt((t_vec.x * t_vec.x) + (t_vec.y * t_vec.y));
+	return vecMag;
+}
+
+sf::Vector2f NPC::normaliseVector(sf::Vector2f t_vec)
+{
+	float vecMag = vectorMagnitude(t_vec);
+
+	sf::Vector2f returnVec = sf::Vector2f(t_vec.x / vecMag, t_vec.y / vecMag);
+
+	return returnVec;
+	
 }

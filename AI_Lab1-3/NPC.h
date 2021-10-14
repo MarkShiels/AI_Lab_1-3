@@ -22,7 +22,6 @@ public:
 	void			changeBehaviour(Behaviour t_b);
 	void			boundaryCheck(float t_screenSize);
 
-	sf::Vector2f	normaliseVector(sf::Vector2f t_vec);
 
 private:
 
@@ -34,5 +33,11 @@ private:
 	void			facing(float t_pi);
 	void			knmtcWander(float t_pi);
 	void			seek(sf::Vector2f t_target);
+	void			arrive(sf::Vector2f t_target);
+	void			flee(sf::Vector2f t_target);
 	void			move();
+	
+	float			vectorMagnitude(sf::Vector2f t_vec);
+	sf::Vector2f	normaliseVector(sf::Vector2f t_vec);
+
 };

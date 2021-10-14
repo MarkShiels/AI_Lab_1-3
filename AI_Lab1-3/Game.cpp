@@ -23,6 +23,14 @@ Game::Game() : m_window(sf::VideoMode(screenSize, screenSize, 32), "AI_Lab_1-3",
 	m_npcSk.setSpeed(m_npcSpeed);
 	m_npcSk.changeBehaviour(Behaviour::Seek);
 
+	m_npcArv.setTetxure(&m_alienTxtr);
+	m_npcArv.setSpeed(m_npcSpeed);
+	m_npcArv.changeBehaviour(Behaviour::Arrive);
+
+	m_npcFle.setTetxure(&m_alienTxtr);
+	m_npcFle.setSpeed(m_npcSpeed);
+	m_npcFle.changeBehaviour(Behaviour::Flee);
+
 	m_pi = 2 * acos(0.0);
 
 	do {
@@ -33,17 +41,31 @@ Game::Game() : m_window(sf::VideoMode(screenSize, screenSize, 32), "AI_Lab_1-3",
 		float randY2 = (rand() % 20) - 10;
 		float randX3 = (rand() % 20) - 10;
 		float randY3 = (rand() % 20) - 10;
+		float randX4 = (rand() % 20) - 10;
+		float randY4 = (rand() % 20) - 10;
+		float randX5 = (rand() % 20) - 10;
+		float randY5 = (rand() % 20) - 10;
+
+		m_playerVec = sf::Vector2f(randX, randY);
+		normaliseVector(m_playerVec);
 		m_npcVec = sf::Vector2f(randX2, randY2);
 		normaliseVector(m_npcVec);
 		m_npcVec2 = sf::Vector2f(randX3, randY3);
 		normaliseVector(m_npcVec2);
-		m_playerVec = sf::Vector2f(randX, randY);
-		normaliseVector(m_playerVec);
-	} while (m_playerVec == sf::Vector2f(0,0) || m_npcVec == sf::Vector2f(0,0) || m_npcVec2 == sf::Vector2f(0, 0));
+		m_npcVec3 = sf::Vector2f(randX4, randY4);
+		normaliseVector(m_npcVec3);
+		m_npcVec4 = sf::Vector2f(randX5, randY5);
+		normaliseVector(m_npcVec4);
+
+	} while (m_playerVec == sf::Vector2f(0,0) || m_npcVec == sf::Vector2f(0,0) || m_npcVec2 == sf::Vector2f(0, 0)
+				|| m_npcVec3 == sf::Vector2f(0, 0) || m_npcVec4 == sf::Vector2f(0, 0));
 
 	m_player.setMoveVec(m_playerVec);
 	m_npcWdr.setMoveVec(m_npcVec);
 	m_npcSk.setMoveVec(m_npcVec2);
+	m_npcArv.setMoveVec(m_npcVec3);
+	m_npcFle.setMoveVec(m_npcVec4);
+
 }
 
 Game::~Game()
@@ -95,7 +117,7 @@ void Game::keyEvents(sf::Event event)
 	{
 		m_player.setSpeed(m_player.getSpeed() + 0.5f);
 	}
-	else if (event.key.code == sf::Keyboard::Down && m_player.getSpeed() > 0.5f )
+	else if (event.key.code == sf::Keyboard::Down && m_player.getSpeed() > 0.0f )
 	{
 		m_player.setSpeed(m_player.getSpeed() - 0.5f);
 	}
@@ -129,7 +151,9 @@ void Game::update(sf::Time t_tpf)
 	m_player.update(m_pi);
 	m_npcWdr.update(m_pi, m_player.getPosition());
 	m_npcSk.update(m_pi, m_player.getPosition());
-	
+	m_npcArv.update(m_pi, m_player.getPosition());
+	m_npcFle.update(m_pi, m_player.getPosition());
+
 	playerCheck();
 	npcCheck();
 }
@@ -159,6 +183,8 @@ void Game::npcCheck()
 {
 	m_npcWdr.boundaryCheck(screenSize);
 	m_npcSk.boundaryCheck(screenSize);
+	m_npcArv.boundaryCheck(screenSize);
+	m_npcFle.boundaryCheck(screenSize);
 }
 
 sf::Vector2f Game::normaliseVector(sf::Vector2f t_vec)
@@ -175,8 +201,10 @@ void Game::render()
 	m_window.clear(sf::Color(255,255,255));
 
 	m_player.render(&m_window);
-	m_npcWdr.render(&m_window);
-	m_npcSk.render(&m_window);
+	//m_npcWdr.render(&m_window);
+	//m_npcSk.render(&m_window);
+	m_npcArv.render(&m_window);
+	//m_npcFle.render(&m_window);
 
 	m_window.display();
 }

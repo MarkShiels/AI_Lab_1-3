@@ -17,13 +17,13 @@ public:
 
 private:
 
-	void processEvents();
-	void keyEvents(sf::Event event);
-	void update(sf::Time t_tpf);
-	void playerCheck();
-	void npcCheck();
-	void render();
-	sf::Vector2f normaliseVector(sf::Vector2f t_vec);
+	void			processEvents();
+	void			keyEvents(sf::Event event);
+	void			update(sf::Time t_tpf);
+	void			playerCheck();
+	void			npcCheck();
+	void			render();
+	sf::Vector2f	normaliseVector(sf::Vector2f t_vec);
 
 	float screenSize = sf::VideoMode::getDesktopMode().height / 1.5f;
 
@@ -31,11 +31,15 @@ private:
 	Player				m_player;
 	NPC					m_npcWdr;
 	NPC					m_npcSk;
+	NPC					m_npcArv;
+	NPC					m_npcFle;
 	sf::Texture			m_playerTxtr;
 	sf::Texture			m_alienTxtr;
 	sf::Vector2f		m_playerVec;
 	sf::Vector2f		m_npcVec;
 	sf::Vector2f		m_npcVec2;
+	sf::Vector2f		m_npcVec3;
+	sf::Vector2f		m_npcVec4;
 	float				m_playerSpeed{1};
 	float				m_npcSpeed{4};
 	float				m_pi;
