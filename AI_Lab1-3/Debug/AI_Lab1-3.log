@@ -1,5 +1,5 @@
 ﻿  NPC.cpp
 C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\NPC.cpp(7,24): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\NPC.cpp(128,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\NPC.cpp(129,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\NPC.cpp(141,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\AI_Lab1-3\NPC.cpp(142,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   AI_Lab1-3.vcxproj -> C:\Users\gameuser\Desktop\AIFG\Labs\AI_Lab_1-3\Debug\AI_Lab1-3.exe

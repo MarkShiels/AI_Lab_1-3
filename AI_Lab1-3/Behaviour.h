@@ -4,5 +4,6 @@ enum class Behaviour
 	Wander,
 	Seek,
 	Arrive,
-	Flee
+	Flee,
+	Pursue
 };

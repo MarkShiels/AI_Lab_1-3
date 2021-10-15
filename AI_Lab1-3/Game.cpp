@@ -20,7 +20,7 @@ Game::Game() : m_window(sf::VideoMode(screenSize, screenSize, 32), "AI_Lab_1-3",
 	m_npcWdr.changeBehaviour(Behaviour::Wander);
 
 	m_npcSk.setTetxure(&m_alienTxtr);
-	m_npcSk.setSpeed(m_npcSpeed);
+	m_npcSk.setSpeed(m_npcSpeed2);
 	m_npcSk.changeBehaviour(Behaviour::Seek);
 
 	m_npcArv.setTetxure(&m_alienTxtr);
@@ -28,8 +28,12 @@ Game::Game() : m_window(sf::VideoMode(screenSize, screenSize, 32), "AI_Lab_1-3",
 	m_npcArv.changeBehaviour(Behaviour::Arrive);
 
 	m_npcFle.setTetxure(&m_alienTxtr);
-	m_npcFle.setSpeed(m_npcSpeed);
+	m_npcFle.setSpeed(m_npcSpeed2);
 	m_npcFle.changeBehaviour(Behaviour::Flee);
+
+	m_npcPrs.setTetxure(&m_alienTxtr);
+	m_npcPrs.setSpeed(m_npcSpeed2);
+	m_npcPrs.changeBehaviour(Behaviour::Pursue);
 
 	m_pi = 2 * acos(0.0);
 
@@ -39,33 +43,23 @@ Game::Game() : m_window(sf::VideoMode(screenSize, screenSize, 32), "AI_Lab_1-3",
 		float randY = (rand() % 20) - 10;
 		float randX2 = (rand() % 20) - 10;
 		float randY2 = (rand() % 20) - 10;
-		float randX3 = (rand() % 20) - 10;
-		float randY3 = (rand() % 20) - 10;
-		float randX4 = (rand() % 20) - 10;
-		float randY4 = (rand() % 20) - 10;
-		float randX5 = (rand() % 20) - 10;
-		float randY5 = (rand() % 20) - 10;
-
+		
 		m_playerVec = sf::Vector2f(randX, randY);
 		normaliseVector(m_playerVec);
 		m_npcVec = sf::Vector2f(randX2, randY2);
 		normaliseVector(m_npcVec);
-		m_npcVec2 = sf::Vector2f(randX3, randY3);
-		normaliseVector(m_npcVec2);
-		m_npcVec3 = sf::Vector2f(randX4, randY4);
-		normaliseVector(m_npcVec3);
-		m_npcVec4 = sf::Vector2f(randX5, randY5);
-		normaliseVector(m_npcVec4);
+		
 
-	} while (m_playerVec == sf::Vector2f(0,0) || m_npcVec == sf::Vector2f(0,0) || m_npcVec2 == sf::Vector2f(0, 0)
-				|| m_npcVec3 == sf::Vector2f(0, 0) || m_npcVec4 == sf::Vector2f(0, 0));
-
+	} while (m_playerVec == sf::Vector2f(0, 0) || m_npcVec == sf::Vector2f(0, 0));
+			
 	m_player.setMoveVec(m_playerVec);
 	m_npcWdr.setMoveVec(m_npcVec);
-	m_npcSk.setMoveVec(m_npcVec2);
-	m_npcArv.setMoveVec(m_npcVec3);
-	m_npcFle.setMoveVec(m_npcVec4);
 
+	m_aliens.push_back(m_npcWdr);
+	m_aliens.push_back(m_npcSk);
+	m_aliens.push_back(m_npcArv);
+	m_aliens.push_back(m_npcFle);
+	m_aliens.push_back(m_npcPrs);
 }
 
 Game::~Game()
@@ -144,15 +138,46 @@ void Game::keyEvents(sf::Event event)
 		m_player.setMoveVec(newVec);
 	}
 
+	switch (event.key.code)
+	{
+	case sf::Keyboard::Num1:
+		m_aliens[0].toggleDraw();
+		break;
+
+	case sf::Keyboard::Num2:
+		m_aliens[1].toggleDraw();
+		break;
+
+	case sf::Keyboard::Num3:
+		m_aliens[2].toggleDraw();
+		break;
+
+	case sf::Keyboard::Num4:
+		m_aliens[3].toggleDraw();
+		break;
+
+	case sf::Keyboard::Num5:
+		m_aliens[4].toggleDraw();
+		break;
+
+	default:
+		break;
+	}
+
+
 }
 
 void Game::update(sf::Time t_tpf)
 {
 	m_player.update(m_pi);
-	m_npcWdr.update(m_pi, m_player.getPosition());
-	m_npcSk.update(m_pi, m_player.getPosition());
-	m_npcArv.update(m_pi, m_player.getPosition());
-	m_npcFle.update(m_pi, m_player.getPosition());
+	sf::Vector2f playerVel = m_player.getMoveVec() * m_player.getSpeed();
+
+	for (int i{ 0 }; i < m_aliens.size(); i++)
+	{
+		
+		m_aliens[i].update(m_pi, m_player.getPosition(), playerVel);
+		
+	}
 
 	playerCheck();
 	npcCheck();
@@ -181,10 +206,13 @@ void Game::playerCheck()
 
 void Game::npcCheck()
 {
-	m_npcWdr.boundaryCheck(screenSize);
-	m_npcSk.boundaryCheck(screenSize);
-	m_npcArv.boundaryCheck(screenSize);
-	m_npcFle.boundaryCheck(screenSize);
+	for (int i{ 0 }; i < m_aliens.size(); i++)
+	{
+		
+		m_aliens[i].boundaryCheck(screenSize);
+		
+	}
+
 }
 
 sf::Vector2f Game::normaliseVector(sf::Vector2f t_vec)
@@ -200,11 +228,15 @@ void Game::render()
 {
 	m_window.clear(sf::Color(255,255,255));
 
+	for (int i{ 0 }; i < m_aliens.size(); i++)
+	{
+		if (m_aliens[i].getDrawNoDraw())
+		{
+			m_aliens[i].render(&m_window);
+		}
+	}
+
 	m_player.render(&m_window);
-	//m_npcWdr.render(&m_window);
-	//m_npcSk.render(&m_window);
-	m_npcArv.render(&m_window);
-	//m_npcFle.render(&m_window);
 
 	m_window.display();
 }

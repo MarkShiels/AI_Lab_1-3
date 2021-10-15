@@ -33,6 +33,7 @@ private:
 	NPC					m_npcSk;
 	NPC					m_npcArv;
 	NPC					m_npcFle;
+	NPC					m_npcPrs;
 	sf::Texture			m_playerTxtr;
 	sf::Texture			m_alienTxtr;
 	sf::Vector2f		m_playerVec;
@@ -40,9 +41,13 @@ private:
 	sf::Vector2f		m_npcVec2;
 	sf::Vector2f		m_npcVec3;
 	sf::Vector2f		m_npcVec4;
+	sf::Vector2f		m_npcVec5;
 	float				m_playerSpeed{1};
 	float				m_npcSpeed{4};
+	float				m_npcSpeed2{ 2 };
 	float				m_pi;
+
+	std::vector<NPC>	m_aliens;
 
 };
 

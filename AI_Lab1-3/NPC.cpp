@@ -70,7 +70,7 @@ void NPC::facing(float t_pi)
 	body.setRotation(angle + 90);
 }
 
-void NPC::update(float t_pi, sf::Vector2f t_target)
+void NPC::update(float t_pi, sf::Vector2f t_target, sf::Vector2f t_targetVel)
 {
 
 	switch (behaviour)
@@ -88,6 +88,9 @@ void NPC::update(float t_pi, sf::Vector2f t_target)
 		break;
 	case Behaviour::Flee :
 		flee(t_target);
+
+	case Behaviour::Pursue:
+		pursue(t_target, t_targetVel);
 
 	default :
 		break;
@@ -121,6 +124,16 @@ void NPC::boundaryCheck(float t_screenSize)
 	{
 		body.setPosition(sf::Vector2f(body.getPosition().x, 0));
 	}
+}
+
+bool NPC::getDrawNoDraw()
+{
+	return drawNoDraw;
+}
+
+void NPC::toggleDraw()
+{
+	drawNoDraw = !drawNoDraw;
 }
 
 void NPC::knmtcWander(float t_pi)
@@ -181,6 +194,20 @@ void NPC::arrive(sf::Vector2f t_target)
 void NPC::flee(sf::Vector2f t_target)
 {
 	moveVec = body.getPosition() - t_target;
+	moveVec = normaliseVector(moveVec);
+}
+
+void NPC::pursue(sf::Vector2f t_target, sf::Vector2f t_targetVel)
+{
+	speed = 8;
+
+	moveVec = t_target - body.getPosition();
+	float distance = vectorMagnitude(moveVec);
+	float timeToTarget = distance / speed;
+
+	sf::Vector2f newTarget = (t_target )+ (t_targetVel * timeToTarget);
+
+	moveVec = newTarget - body.getPosition();
 	moveVec = normaliseVector(moveVec);
 }
 
