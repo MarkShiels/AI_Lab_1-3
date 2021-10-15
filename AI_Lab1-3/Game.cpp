@@ -11,6 +11,10 @@ Game::Game() : m_window(sf::VideoMode(screenSize, screenSize, 32), "AI_Lab_1-3",
 	{
 		std::cout << "Can't load alien ship" << std::endl;
 	}
+	if (!m_font.loadFromFile("Assets/Highman.ttf"))
+	{
+		std::cout << "Can't load font " << std::endl;
+	}
 
 	m_player.setTetxure(&m_playerTxtr);
 	m_player.setSpeed(m_playerSpeed);
@@ -18,22 +22,27 @@ Game::Game() : m_window(sf::VideoMode(screenSize, screenSize, 32), "AI_Lab_1-3",
 	m_npcWdr.setTetxure(&m_alienTxtr);
 	m_npcWdr.setSpeed(m_npcSpeed);
 	m_npcWdr.changeBehaviour(Behaviour::Wander);
+	m_npcWdr.setText("Wander");
 
 	m_npcSk.setTetxure(&m_alienTxtr);
 	m_npcSk.setSpeed(m_npcSpeed2);
 	m_npcSk.changeBehaviour(Behaviour::Seek);
+	m_npcSk.setText("Seek");
 
 	m_npcArv.setTetxure(&m_alienTxtr);
 	m_npcArv.setSpeed(m_npcSpeed);
 	m_npcArv.changeBehaviour(Behaviour::Arrive);
+	m_npcArv.setText("Arrive");
 
 	m_npcFle.setTetxure(&m_alienTxtr);
 	m_npcFle.setSpeed(m_npcSpeed2);
 	m_npcFle.changeBehaviour(Behaviour::Flee);
+	m_npcFle.setText("Flee");
 
 	m_npcPrs.setTetxure(&m_alienTxtr);
 	m_npcPrs.setSpeed(m_npcSpeed2);
 	m_npcPrs.changeBehaviour(Behaviour::Pursue);
+	m_npcPrs.setText("Pursue");
 
 	m_pi = 2 * acos(0.0);
 
@@ -60,6 +69,18 @@ Game::Game() : m_window(sf::VideoMode(screenSize, screenSize, 32), "AI_Lab_1-3",
 	m_aliens.push_back(m_npcArv);
 	m_aliens.push_back(m_npcFle);
 	m_aliens.push_back(m_npcPrs);
+
+	for (int i{ 0 }; i < m_aliens.size(); i++)
+	{
+		m_text2.setFont(m_font);
+		m_text2.setFillColor(sf::Color::Black);
+		m_text2.setCharacterSize(25);
+
+		m_text2.setString(m_aliens[i].getText());
+		m_text2.setPosition(m_aliens[i].getPosition());
+		m_text.push_back(m_text2);
+	}
+
 }
 
 Game::~Game()
@@ -176,6 +197,7 @@ void Game::update(sf::Time t_tpf)
 	{
 		
 		m_aliens[i].update(m_pi, m_player.getPosition(), playerVel);
+		m_text[i].setPosition(m_aliens[i].getPosition() + sf::Vector2f(-20, 15));
 		
 	}
 
@@ -233,11 +255,11 @@ void Game::render()
 		if (m_aliens[i].getDrawNoDraw())
 		{
 			m_aliens[i].render(&m_window);
+			m_window.draw(m_text[i]);
 		}
 	}
 
 	m_player.render(&m_window);
-
 	m_window.display();
 }
 

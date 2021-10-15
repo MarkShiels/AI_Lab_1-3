@@ -39,15 +39,16 @@ private:
 	sf::Vector2f		m_playerVec;
 	sf::Vector2f		m_npcVec;
 	sf::Vector2f		m_npcVec2;
-	sf::Vector2f		m_npcVec3;
-	sf::Vector2f		m_npcVec4;
-	sf::Vector2f		m_npcVec5;
+
 	float				m_playerSpeed{1};
 	float				m_npcSpeed{4};
 	float				m_npcSpeed2{ 2 };
 	float				m_pi;
 
-	std::vector<NPC>	m_aliens;
+	std::vector<NPC>		m_aliens;
+	sf::Font				m_font;
+	std::vector<sf::Text>	m_text;
+	sf::Text				m_text2;
 
 };
 

@@ -23,6 +23,8 @@ public:
 	void			boundaryCheck(float t_screenSize);
 	bool			getDrawNoDraw();
 	void			toggleDraw();
+	void			setText(std::string t_text);
+	std::string		getText();
 
 private:
 
@@ -41,5 +43,5 @@ private:
 	void			move();
 	float			vectorMagnitude(sf::Vector2f t_vec);
 	sf::Vector2f	normaliseVector(sf::Vector2f t_vec);
-
+	std::string		label;
 };

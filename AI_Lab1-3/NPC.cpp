@@ -86,8 +86,10 @@ void NPC::update(float t_pi, sf::Vector2f t_target, sf::Vector2f t_targetVel)
 	case Behaviour::Arrive :
 		arrive(t_target);
 		break;
+
 	case Behaviour::Flee :
 		flee(t_target);
+		break;
 
 	case Behaviour::Pursue:
 		pursue(t_target, t_targetVel);
@@ -134,6 +136,16 @@ bool NPC::getDrawNoDraw()
 void NPC::toggleDraw()
 {
 	drawNoDraw = !drawNoDraw;
+}
+
+void NPC::setText(std::string t_text)
+{	
+	label = t_text;
+}
+
+std::string NPC::getText()
+{
+	return label;
 }
 
 void NPC::knmtcWander(float t_pi)
