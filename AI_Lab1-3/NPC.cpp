@@ -5,6 +5,12 @@ NPC::NPC()
 	body.setPosition(550, 550);
 	body.setOrigin(106, 118.5);
 	body.setScale(0.2, 0.2);
+
+	cov.setPointCount(3);
+	cov.setRadius(125);
+	cov.setOrigin(125, 0);
+	cov.setFillColor(sf::Color(0, 180, 0, 50));
+	cov.setPosition(100, 100);
 }
 
 NPC::~NPC()
@@ -100,6 +106,8 @@ void NPC::update(float t_pi, sf::Vector2f t_target, sf::Vector2f t_targetVel)
 
 	move();
 	facing(t_pi);
+	cov.setPosition(body.getPosition() + moveVec);
+	cov.setRotation(body.getRotation() - 180);
 }
 
 void NPC::changeBehaviour(Behaviour t_b)
@@ -226,6 +234,7 @@ void NPC::pursue(sf::Vector2f t_target, sf::Vector2f t_targetVel)
 void NPC::render(sf::RenderWindow* t_window)
 {
 	t_window->draw(body);
+	t_window->draw(cov);
 }
 
 float NPC::vectorMagnitude(sf::Vector2f t_vec)

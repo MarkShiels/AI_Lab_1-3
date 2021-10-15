@@ -47,6 +47,7 @@ Game::Game() : m_window(sf::VideoMode(screenSize, screenSize, 32), "AI_Lab_1-3",
 	m_pi = 2 * acos(0.0);
 
 	do {
+
 		srand(time(0));
 		float randX = (rand() % 20) - 10;
 		float randY = (rand() % 20) - 10;
@@ -57,7 +58,6 @@ Game::Game() : m_window(sf::VideoMode(screenSize, screenSize, 32), "AI_Lab_1-3",
 		normaliseVector(m_playerVec);
 		m_npcVec = sf::Vector2f(randX2, randY2);
 		normaliseVector(m_npcVec);
-		
 
 	} while (m_playerVec == sf::Vector2f(0, 0) || m_npcVec == sf::Vector2f(0, 0));
 			
@@ -137,7 +137,7 @@ void Game::keyEvents(sf::Event event)
 		m_player.setSpeed(m_player.getSpeed() - 0.5f);
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))//event.key.code == sf::Keyboard::Left)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		sf::Vector2f pVec = sf::Vector2f(m_player.getMoveVec());
 		sf::Vector2f newVec;

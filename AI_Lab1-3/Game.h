@@ -49,6 +49,6 @@ private:
 	sf::Font				m_font;
 	std::vector<sf::Text>	m_text;
 	sf::Text				m_text2;
-	float					m_testFloat{ 69 };
+	
 };
 

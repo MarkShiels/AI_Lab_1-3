@@ -24,6 +24,7 @@ public:
 	void			move();
 	void			facing(float t_pi);
 	void			update(float t_pi);
+	//sf::CircleShape covOrgnLoc;
 
 private:
 
@@ -31,6 +32,6 @@ private:
 	sf::Texture		bodyTxtr;
 	sf::Vector2f	moveVec;
 	float			speed;
-
+	sf::CircleShape cov;
 
 };

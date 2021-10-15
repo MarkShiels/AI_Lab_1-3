@@ -33,7 +33,7 @@ private:
 	sf::Texture		bodyTxtr;
 	sf::Vector2f	moveVec;
 	float			speed;
-	bool			drawNoDraw{true};
+	bool			drawNoDraw{false};
 	void			facing(float t_pi);
 	void			knmtcWander(float t_pi);
 	void			seek(sf::Vector2f t_target);
@@ -44,4 +44,5 @@ private:
 	float			vectorMagnitude(sf::Vector2f t_vec);
 	sf::Vector2f	normaliseVector(sf::Vector2f t_vec);
 	std::string		label;
+	sf::CircleShape cov;
 };

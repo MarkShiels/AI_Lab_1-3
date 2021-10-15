@@ -5,7 +5,19 @@ Player::Player()
 	body.setPosition(50, 50);
 	body.setOrigin(85.5, 145.5);
 	body.setScale(0.25, 0.25);
+
+	cov.setPointCount(3);
+	cov.setRadius(125);
+	cov.setOrigin(125, 0);
+	cov.setFillColor(sf::Color(0, 180, 0, 50));
+	cov.setPosition(100, 100);
+
+	/*covOrgnLoc.setRadius(4);
+	covOrgnLoc.setOrigin(4, 4);
+	covOrgnLoc.setFillColor(sf::Color(255, 255, 255, 50));
+	covOrgnLoc.setPosition(cov.getPosition());*/
 }
+
 
 Player::~Player()
 {
@@ -70,6 +82,10 @@ void Player::update(float t_pi)
 {
 	move();
 	facing(t_pi);
+
+	//covOrgnLoc.setPosition(cov.getPosition());
+	cov.setPosition(body.getPosition() + moveVec );
+	cov.setRotation(body.getRotation() - 180);
 }
 
 void Player::move()
@@ -99,4 +115,6 @@ void Player::setTetxure(sf::Texture* t_txtr)
 void Player::render(sf::RenderWindow* t_window)
 {
 	t_window->draw(body);
+	t_window->draw(cov);
+	//t_window->draw(covOrgnLoc);
 }
